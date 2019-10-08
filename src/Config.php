@@ -37,6 +37,21 @@ class Config
     /** @var integer Size for Chunked Uploads */
     protected $chunkSize = 250000; // 0.25 MegaByte
 
+    protected $apiHost = 'https://api.twitter.com';
+    protected $uploadHost = 'https://upload.twitter.com';
+    protected $apiVersion = '1.1';
+
+    public function useAdApi(bool $bool)
+    {
+        if ($bool) {
+            $this->apiHost = 'https://ads-api.twitter.com';
+            $this->apiVersion = '6';
+        } else {
+            $this->apiHost = 'https://api.twitter.com';
+            $this->apiVersion = '1.1';
+        }
+    }
+
     /**
      * Set the connection and response timeouts.
      *
