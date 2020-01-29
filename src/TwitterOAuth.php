@@ -401,7 +401,7 @@ class TwitterOAuth extends Config
     {
         $this->resetLastResponse();
         $this->resetAttemptsNumber();
-        $url = sprintf('%s/%s/%s.json', $host, $this->apiVersion, $path);
+        $url = sprintf('%s/%s/%s', $host, $this->apiVersion, $path);
         $this->response->setApiPath($path);
         if (!$json) {
             $parameters = $this->cleanUpParameters($parameters);
@@ -564,7 +564,10 @@ class TwitterOAuth extends Config
 
         // Throw exceptions on cURL errors.
         if (curl_errno($curlHandle) > 0) {
-            throw new TwitterOAuthException(curl_error($curlHandle), curl_errno($curlHandle));
+            $error = curl_error($curlHandle);
+            $errorNo = curl_errno($curlHandle);
+            curl_close($curlHandle);
+            throw new TwitterOAuthException($error, $errorNo);
         }
 
         $this->response->setHttpCode(curl_getinfo($curlHandle, CURLINFO_HTTP_CODE));
