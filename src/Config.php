@@ -45,7 +45,7 @@ class Config
     {
         if ($bool) {
             $this->apiHost = 'https://ads-api.twitter.com';
-            $this->apiVersion = '6';
+            $this->apiVersion = '8';
         } else {
             $this->apiHost = 'https://api.twitter.com';
             $this->apiVersion = '1.1';
